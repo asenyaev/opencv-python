@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Linux x86_64
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/lapack
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
@@ -53,6 +53,9 @@ jobs:
       with:
         submodules: false
         fetch-depth: 0
+
+    - name: Check lapack
+      run: whereis lapack
 
     - name: Update submodules
       if: github.event_name == 'pull_request'
