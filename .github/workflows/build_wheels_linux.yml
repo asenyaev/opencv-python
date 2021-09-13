@@ -3,7 +3,7 @@ name: Build PYPI wheels for opencv-python on Linux x86_64
 on:
   push:
     branches:
-      - asen/lapack
+      - asen/change_linux
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
