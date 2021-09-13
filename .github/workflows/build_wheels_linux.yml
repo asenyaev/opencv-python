@@ -48,14 +48,14 @@ jobs:
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
 
     steps:
+    - name: Check lapack
+      run: whereis lapack
+
     - name: Checkout
       uses: actions/checkout@v2
       with:
         submodules: false
         fetch-depth: 0
-
-    - name: Check lapack
-      run: whereis lapack
 
     - name: Update submodules
       if: github.event_name == 'pull_request'
