@@ -76,8 +76,17 @@ jobs:
         python -m pip install --upgrade setuptools
         python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
 
-    - name: install and test
-      run: source scripts/install.sh
+    - name: before test
+      run: |
+        git submodule update --init --recursive
+        cd ${{ github.workspace }}/tests
+        python -m pip install --user --no-warn-script-location (ls "../wheelhouse/opencv*.whl")
+        python get_build_info.py
+
+    - name: run test
+      run: |
+        cd ${{ github.workspace }}/opencv
+        python modules\python\test\test.py -v --repo .
 
     - name: saving artifacts
       uses: actions/upload-artifact@v2
