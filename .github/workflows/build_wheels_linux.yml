@@ -70,7 +70,11 @@ jobs:
         echo "TEST_DEPENDS=$(echo $NP_TEST_DEP)" >> $GITHUB_ENV;
 
     - name: build
-      run: source scripts/build.sh
+      run: |
+        python --version
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade setuptools
+        python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
 
     - name: install and test
       run: source scripts/install.sh
