@@ -76,7 +76,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install --upgrade setuptools
         sudo apt install libeigen3-dev
-        python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
+        python -m pip wheel --wheel-dir=wheelhouse . --verbose
 
     - name: before test
       run: |
