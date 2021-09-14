@@ -48,6 +48,9 @@ jobs:
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
 
     steps:
+    - name: Check lapack
+      run: whereis lapack
+
     - name: Checkout
       uses: actions/checkout@v2
       with:
@@ -75,26 +78,24 @@ jobs:
         echo "BUILD_DEPENDS=$(echo $NP_BUILD_DEP)" >> $GITHUB_ENV;
         echo "TEST_DEPENDS=$(echo $NP_TEST_DEP)" >> $GITHUB_ENV;
 
-    - name: before install
+    - name: build
       run: |
-        set -e
-        # Check out and prepare the source
-        # Multibuild doesn't have releases, so --depth would break eventually (see
-        # https://superuser.com/questions/1240216/server-does-not-allow-request-for-unadvertised)
-        git submodule update --init multibuild
-        source multibuild/common_utils.sh
-        # https://github.com/matthew-brett/multibuild/issues/116
-        if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export ARCH_FLAGS=" "; fi
-        source multibuild/travis_steps.sh
-        # This sets -x
-        # source travis_multibuild_customize.sh
-        echo $ENABLE_CONTRIB > contrib.enabled
-        echo $ENABLE_HEADLESS > headless.enabled
-        set -x
-        build_wheel $REPO_DIR $PLAT
+        python --version
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade setuptools
+        python -m pip wheel --wheel-dir=wheelhouse . --verbose
+
+    - name: before test
+      run: |
         git submodule update --init --recursive
-        install_run $PLAT
-        set +x
+        python -m pip install --user --no-warn-script-location ${{ github.workspace }}/wheelhouse/opencv*.whl
+        cd ${{ github.workspace }}/tests
+        python get_build_info.py
+
+    - name: run test
+      run: |
+        cd ${{ github.workspace }}/opencv
+        python modules/python/test/test.py -v --repo .
 
     - name: saving artifacts
       uses: actions/upload-artifact@v2
