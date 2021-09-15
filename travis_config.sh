@@ -36,6 +36,14 @@ else
 fi
 
 if [ -n "$IS_OSX" ]; then
+  brew install lapack
+  whereis lapack
+else
+  sudo apt-get install liblapack-dev
+  whereis lapack
+fi
+
+if [ -n "$IS_OSX" ]; then
 
     source travis_osx_brew_cache.sh
 
