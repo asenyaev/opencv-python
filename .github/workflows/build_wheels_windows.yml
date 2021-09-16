@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Windows
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/lapack
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_macos*'
@@ -52,6 +52,15 @@ jobs:
         python-version: ${{ matrix.python-version }}
         architecture: ${{ matrix.platform }}
 
+    - name: Define path for LAPACK
+      run: |
+        mkdir ${{ github.workspace }}\bin
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib -O ${{ github.workspace }}\bin\BLAS.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib -O ${{ github.workspace }}\bin\LAPACK.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib -O ${{ github.workspace }}\bin\LAPACKE.lib
+        path=${{ github.workspace }}/bin;%PATH%
+      shell: cmd
+
     - name: Setup MSBuild.exe
       uses: warrenbuckley/Setup-MSBuild@v1
 
@@ -83,6 +92,13 @@ jobs:
       with:
         name: wheels
         path: wheelhouse/opencv*.whl
+    - name: Download LAPACK
+      run: |
+        curl http://netlib.org/lapack/lapack.tgz -O ${{ github.workspace }}\lapack.tgz
+      shell: cmd
+    - uses: edgarrc/action-7z@v1
+      with:
+        args: 7z a -t7z -mx=9 ${{ github.workspace }}/lapack.tgz ${{ github.workspace }}/lapack
 
   test_release_opencv_python:
     if: github.event_name == 'release' && github.event.release.prerelease
