@@ -63,7 +63,7 @@ jobs:
       run: |
         set PATH=%PATH%;${{ github.workspace }}
         echo %PATH%
-        ls ${{ github.workspace }}\bin
+        ls ${{ github.workspace }}
       shell: cmd
 
     - name: Setup MSBuild.exe
