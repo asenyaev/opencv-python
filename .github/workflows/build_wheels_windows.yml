@@ -55,9 +55,9 @@ jobs:
 
     - name: Define path for LAPACK
       run: |
-        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib --output ${{ github.workspace }}/BLAS.lib
-        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib --output ${{ github.workspace }}/LAPACK.lib
-        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib --output ${{ github.workspace }}/LAPACKE.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib --output ${{ github.workspace }}/BLAS.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib --output ${{ github.workspace }}/LAPACK.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib --output ${{ github.workspace }}/LAPACKE.lib
     - name: Check LAPACK
       run: |
         set PATH=%PATH%;${{ github.workspace }}
