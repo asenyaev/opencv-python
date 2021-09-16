@@ -54,12 +54,15 @@ jobs:
 
     - name: Define path for LAPACK
       run: |
-        mkdir ${{ github.workspace }}\bin
-        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib -O ${{ github.workspace }}\bin\BLAS.lib
-        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib -O ${{ github.workspace }}\bin\LAPACK.lib
-        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib -O ${{ github.workspace }}\bin\LAPACKE.lib
-        path=${{ github.workspace }}\bin;%PATH%
-        echo $path
+        mkdir ${{ github.workspace }}/bin
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib -O ${{ github.workspace }}/bin/BLAS.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib -O ${{ github.workspace }}/bin/LAPACK.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib -O ${{ github.workspace }}/bin/LAPACKE.lib
+      shell: bash
+    - name: Check LAPACK
+      run: |
+        set PATH=%PATH%;${{ github.workspace }}\bin
+        echo %PATH%
         ls ${{ github.workspace }}\bin
       shell: cmd
 
