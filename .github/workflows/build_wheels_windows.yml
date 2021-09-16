@@ -52,17 +52,16 @@ jobs:
         python-version: ${{ matrix.python-version }}
         architecture: ${{ matrix.platform }}
 
-    - name: Create dir
-      run: mkdir ${{ github.workspace }}/bin
+
     - name: Define path for LAPACK
       run: |
-        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib --output ${{ github.workspace }}/bin/BLAS.lib
-        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib --output ${{ github.workspace }}/bin/LAPACK.lib
-        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib --output ${{ github.workspace }}/bin/LAPACKE.lib
+        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib --output ${{ github.workspace }}/BLAS.lib
+        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib --output ${{ github.workspace }}/LAPACK.lib
+        curl -fsSL https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib --output ${{ github.workspace }}/LAPACKE.lib
       shell: bash
     - name: Check LAPACK
       run: |
-        set PATH=%PATH%;${{ github.workspace }}\bin
+        set PATH=%PATH%;${{ github.workspace }}
         echo %PATH%
         ls ${{ github.workspace }}\bin
       shell: cmd
