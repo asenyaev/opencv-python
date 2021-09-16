@@ -58,7 +58,7 @@ jobs:
         curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib -O
         curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib -O
         curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib -O
-      shell: shell
+      shell: cmd
     - name: Check LAPACK
       run: |
         set PATH=%PATH%;${{ github.workspace }}
