@@ -50,7 +50,9 @@ jobs:
 
     steps:
     - name: Check lapack
-      run: whereis lapack
+      run: |
+        sudo apt-get install libblas-dev liblapack-dev
+        whereis lapack
 
     - name: Checkout
       uses: actions/checkout@v2
