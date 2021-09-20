@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Linux x86_64
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/small_test
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
@@ -115,6 +115,9 @@ jobs:
       ENABLE_CONTRIB: ${{ matrix.with_contrib || 0 }}
 
     steps:
+    - name: check lapack
+      run: whereis lapack
+    
     - name: Checkout
       uses: actions/checkout@v2
       with:
