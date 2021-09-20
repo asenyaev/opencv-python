@@ -51,7 +51,7 @@ jobs:
     steps:
     - name: Check lapack
       run: |
-        sudo apt-get install libblas-dev liblapack-dev
+        sudo apt-get install liblapacke-dev
         whereis lapack
 
     - name: Checkout
