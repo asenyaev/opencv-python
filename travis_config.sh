@@ -39,7 +39,7 @@ if [ -n "$IS_OSX" ]; then
   brew install lapack
   whereis lapack
 else
-  sudo apt-get install liblapack-dev
+  sudo apt-get install libblas-dev liblapack-dev
   whereis lapack
 fi
 
