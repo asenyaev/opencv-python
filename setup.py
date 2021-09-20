@@ -204,7 +204,6 @@ def main():
 
         if sys.platform.startswith("linux"):
             cmake_args.append("-DWITH_V4L=ON")
-            cmake_args.append("-DWITH_LAPACK=ON")
             cmake_args.append("-DENABLE_PRECOMPILED_HEADERS=OFF")
 
     # https://github.com/scikit-build/scikit-build/issues/479
