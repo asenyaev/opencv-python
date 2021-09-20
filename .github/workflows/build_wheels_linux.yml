@@ -53,8 +53,8 @@ jobs:
       run: |
         sudo apt-get install liblapacke-dev
         whereis lapack
-        cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
-        cp /usr/include/lapacke*.h /usr/lib/x86_64-linux-gnu
+        sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
+        sudo cp /usr/include/lapacke*.h /usr/lib/x86_64-linux-gnu
 
     - name: Checkout
       uses: actions/checkout@v2
