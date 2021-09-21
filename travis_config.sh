@@ -31,6 +31,7 @@ if [ -n "$IS_OSX" ]; then
   whereis lapack
 else
   yum install -y blas-devel lapack-devel
+  cp /usr/include/lapacke/lapacke*.h /usr/include/
   whereis lapack
 fi
 
