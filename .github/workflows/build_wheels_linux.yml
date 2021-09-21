@@ -75,8 +75,23 @@ jobs:
     - name: build
       run: source scripts/build.sh
 
-    - name: install and test
-      run: source scripts/install.sh
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+        architecture: ${{ matrix.platform }}
+
+    - name: before tests
+      run: |
+        git submodule update --init --recursive
+        python -m pip install --user --no-warn-script-location ${{ github.workspace }}/wheelhouse/opencv*.whl
+        cd ${{ github.workspace }}/tests
+        python get_build_info.py
+
+    - name: run test
+      run: |
+        cd ${{ github.workspace }}/opencv
+        python modules/python/test/test.py -v --repo .
 
     - name: saving artifacts
       uses: actions/upload-artifact@v2
