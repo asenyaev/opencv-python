@@ -27,15 +27,6 @@ function bdist_wheel_cmd {
 }
 
 if [ -n "$IS_OSX" ]; then
-  brew install lapack
-  whereis lapack
-else
-  yum install -y atlas-devel blas-devel lapack-devel
-  cp /usr/include/lapacke/lapacke*.h /usr/include/
-  whereis lapack
-fi
-
-if [ -n "$IS_OSX" ]; then
   echo "    > OSX environment "
   export MAKEFLAGS="-j$(sysctl -n hw.ncpu)"
 else
@@ -99,6 +90,16 @@ fi
 
 function pre_build {
   echo "Starting pre-build"
+
+  if [ -n "$IS_OSX" ]; then
+    brew install lapack
+    whereis lapack
+  else
+    yum install -y atlas-devel blas-devel lapack-devel
+    cp /usr/include/lapacke/lapacke*.h /usr/include/
+    whereis lapack
+  fi
+
   set -e -o pipefail
 
   if [ -n "$IS_OSX" ]; then
