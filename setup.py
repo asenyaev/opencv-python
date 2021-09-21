@@ -189,7 +189,7 @@ def main():
 
                 # add fonts for Qt5
                 fonts = []
-                for file in os.listdir("/usr/share/fonts/dejavu"):
+                for file in os.listdir("/usr/share/fonts/truetype/dejavu"):
                     if file.endswith(".ttf"):
                         fonts.append(
                             (r"lib/qt/fonts/dejavu/%s\.ttf" % file.split(".")[0])
