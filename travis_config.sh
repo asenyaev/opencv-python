@@ -30,8 +30,7 @@ if [ -n "$IS_OSX" ]; then
   brew install lapack
   whereis lapack
 else
-  apt-get install liblapacke-dev
-  cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
+  yum install -y blas-devel lapack-devel
   whereis lapack
 fi
 
