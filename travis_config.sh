@@ -27,6 +27,15 @@ function bdist_wheel_cmd {
 }
 
 if [ -n "$IS_OSX" ]; then
+  brew install lapack
+  whereis lapack
+else
+  sudo apt-get install liblapacke-dev
+  sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
+  whereis lapack
+fi
+
+if [ -n "$IS_OSX" ]; then
   echo "    > OSX environment "
   export MAKEFLAGS="-j$(sysctl -n hw.ncpu)"
 else
