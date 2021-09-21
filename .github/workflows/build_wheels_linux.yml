@@ -48,6 +48,12 @@ jobs:
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
 
     steps:
+    - name: Check lapack
+      run: |
+        sudo apt-get install liblapacke-dev
+        whereis lapack
+        sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
+
     - name: Checkout
       uses: actions/checkout@v2
       with:
