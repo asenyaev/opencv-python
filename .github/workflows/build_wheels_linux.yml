@@ -93,7 +93,7 @@ jobs:
         python --version
         python -m pip install --upgrade pip
         python -m pip install --upgrade setuptools
-        python -m pip wheel --wheel-dir=wheelhouse . --verbose
+        CI_BUILD=1 && python -m pip wheel --wheel-dir=wheelhouse . --verbose
 
     - name: before test
       run: |
