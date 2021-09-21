@@ -170,7 +170,7 @@ function run_tests {
       echo "Running for linux"
       
       # Lapack and OpenBlas installation
-      apt-get install libblas-dev liblapack-dev liblapacke-dev
+      apt-get -y install libblas-dev liblapack-dev liblapacke-dev
       cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
 
       if [ $PYTHON == "python3.6" ]; then
