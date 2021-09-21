@@ -168,6 +168,10 @@ function run_tests {
       export OPENCV_TEST_DATA_PATH=../opencv_extra/testdata
     else
       echo "Running for linux"
+      
+      # Lapack and OpenBlas installation
+      apt-get install libblas-dev liblapack-dev liblapacke-dev
+      cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
 
       if [ $PYTHON == "python3.6" ]; then
         $PYTHON -m pip install -U numpy==1.19.4
