@@ -61,7 +61,7 @@ jobs:
         sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
         qmake --version
         ls /home/runner/work/opencv-python/Qt/5.15.0/
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/opencv-python/Qt/5.15.0/lib
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/opencv-python/Qt/5.15.0/gcc_64/lib
         
 
     - name: Checkout
