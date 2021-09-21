@@ -51,7 +51,7 @@ jobs:
     steps:
     - name: Install pre-built libs
       run: |
-        sudo apt-get -y install liblapacke-dev install libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev
+        sudo apt-get -y install liblapacke-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev
         sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
 
     - name: Checkout
