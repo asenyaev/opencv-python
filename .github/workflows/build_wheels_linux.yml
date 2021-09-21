@@ -47,12 +47,19 @@ jobs:
       ENABLE_HEADLESS: ${{ matrix.without_gui }}
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
       OPENCV_TEST_DATA_PATH: ${{ github.workspace }}/opencv_extra/testdata
+      QT_VERSION: 5.15.0
 
     steps:
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: ${{ env.QT_VERSION }}
+
     - name: Install pre-built libs
       run: |
         sudo apt-get -y install liblapacke-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev
         sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
+        qmake --version
 
     - name: Checkout
       uses: actions/checkout@v2
