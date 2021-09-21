@@ -30,7 +30,7 @@ if [ -n "$IS_OSX" ]; then
   brew install lapack
   whereis lapack
 else
-  yum install -y blas-devel lapack-devel
+  yum install -y atlas-devel blas-devel lapack-devel
   cp /usr/include/lapacke/lapacke*.h /usr/include/
   whereis lapack
 fi
