@@ -60,8 +60,8 @@ jobs:
         sudo apt-get -y install liblapacke-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev
         sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
         qmake --version
-        ls ${{ github.workspace }}/Qt/5.15.0/
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/Qt/5.15.0/lib
+        ls /home/runner/work/opencv-python/Qt/5.15.0/
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/opencv-python/Qt/5.15.0/lib
         
 
     - name: Checkout
