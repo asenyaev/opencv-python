@@ -30,8 +30,8 @@ if [ -n "$IS_OSX" ]; then
   brew install lapack
   whereis lapack
 else
-  sudo apt-get install liblapacke-dev
-  sudo cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
+  apt-get install liblapacke-dev
+  cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
   whereis lapack
 fi
 
