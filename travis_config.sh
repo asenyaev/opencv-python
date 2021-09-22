@@ -29,7 +29,7 @@ function bdist_wheel_cmd {
 if [ -n "$IS_OSX" ]; then
   brew install lapack
 else
-  yum install -y atlas-devel lapack-devel
+  yum install -y atlas-devel lapack-devel openblas
   cp /usr/include/lapacke/lapacke*.h /usr/include/
 fi
 
