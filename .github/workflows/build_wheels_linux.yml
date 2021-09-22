@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Linux x86_64
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/new_test
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
