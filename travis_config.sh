@@ -95,7 +95,7 @@ function pre_build {
     brew install lapack
     whereis lapack
   else
-    yum install -y atlas-devel blas-devel lapack-devel
+    yum install -y blas-devel lapack-devel
     cp /usr/include/lapacke/lapacke*.h /usr/include/
     whereis lapack
   fi
@@ -168,7 +168,7 @@ function run_tests {
       export OPENCV_TEST_DATA_PATH=../opencv_extra/testdata
     else
       echo "Running for linux"
-      
+
       # Lapack and OpenBlas installation
       apt-get -y install libblas-dev liblapack-dev liblapacke-dev
       cp /usr/include/lapacke*.h /usr/include/x86_64-linux-gnu
