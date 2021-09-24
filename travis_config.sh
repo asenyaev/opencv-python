@@ -95,7 +95,7 @@ function pre_build {
     brew install lapack
     whereis lapack
   else
-    yum install -y blas-devel lapack-devel
+    yum install -y blas-devel lapack-devel ninja-build
     cp /usr/include/lapacke/lapacke*.h /usr/include/
     whereis lapack
   fi
