@@ -93,6 +93,15 @@ function pre_build {
   set -e -o pipefail
 
   if [ -n "$IS_OSX" ]; then
+    brew install lapack
+    whereis lapack
+  else
+    yum install -y ninja-build blas-devel lapack-devel
+    cp /usr/include/lapacke/lapacke*.h /usr/include/
+    whereis lapack
+  fi
+
+  if [ -n "$IS_OSX" ]; then
     echo "Running for OSX"
 
     local CACHE_STAGE;# (echo "$TRAVIS_BUILD_STAGE_NAME" | grep -qiF "final") || CACHE_STAGE=1
