@@ -39,7 +39,7 @@ def main():
     if sys.platform == "darwin" and sys.version_info[:2] >= (3, 6) and platform.machine() == "arm64":
         minimum_supported_numpy = "1.21.0"
 
-    numpy_version = "numpy>=%s,<1.21.1" % minimum_supported_numpy
+    numpy_version = "numpy>=%s" % minimum_supported_numpy
 
     python_version = cmaker.CMaker.get_python_version()
     python_lib_path = cmaker.CMaker.get_python_library(python_version).replace(
