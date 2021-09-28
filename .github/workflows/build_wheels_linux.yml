@@ -27,8 +27,9 @@ jobs:
     steps:
     - name: Install OpenBLAS
       run: |
-        git clone https://github.com/xianyi/OpenBLAS
-        cd OpenBLAS && make FC=gfortran
+        git clone -b v0.3.3 https://github.com/xianyi/OpenBLAS
+        nproc
+        cd OpenBLAS && make FC=gfortran -j $(nproc)
 
     - name: saving artifacts
       uses: actions/upload-artifact@v2
