@@ -111,6 +111,7 @@ jobs:
 
   build_sdist:
     runs-on: ${{ matrix.os }}
+    needs: [openblas]
     defaults:
       run:
         shell: bash
