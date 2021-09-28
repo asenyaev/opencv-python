@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Linux x86_64
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/openblas
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
@@ -13,8 +13,32 @@ on:
 
 
 jobs:
+  openblas:
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+    - name: Install OpenBLAS
+      run: |
+        git clone https://github.com/xianyi/OpenBLAS
+        cd OpenBLAS && make FC=gfortran
+
+    - name: saving artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: openblas
+        path: OpenBLAS/cblas.h
+
   build:
     runs-on: ${{ matrix.os }}
+    needs: [openblas]
     defaults:
       run:
         shell: bash
@@ -53,6 +77,11 @@ jobs:
       with:
         submodules: false
         fetch-depth: 0
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: openblas
+        path: OpenBLAS/
 
     - name: Update submodules
       if: github.event_name == 'pull_request'
