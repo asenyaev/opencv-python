@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Macos
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/python3.10
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_windows*'
@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.10] # [3.6, 3.7, 3.8, 3.9, 3.10]
         platform: [x64]
         with_contrib: [0, 1]
         without_gui: [0, 1]
