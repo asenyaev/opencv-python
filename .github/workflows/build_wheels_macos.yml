@@ -82,19 +82,21 @@ jobs:
         # Multibuild doesn't have releases, so --depth would break eventually (see
         # https://superuser.com/questions/1240216/server-does-not-allow-request-for-unadvertised)
         git submodule update --init multibuild
-        source multibuild/common_utils.sh
-        # https://github.com/matthew-brett/multibuild/issues/116
-        if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export ARCH_FLAGS=" "; fi
-        source multibuild/travis_steps.sh
-        # This sets -x
-        # source travis_multibuild_customize.sh
         echo $ENABLE_CONTRIB > contrib.enabled
         echo $ENABLE_HEADLESS > headless.enabled
-        set -x
-        build_wheel $REPO_DIR $PLAT
+        python${{ matrix.python-version }} -m pip wheel --wheel-dir=wheelhouse . --verbose
+
+    - name: before test
+      run: |
         git submodule update --init --recursive
-        install_run $PLAT
-        set +x
+        python${{ matrix.python-version }} -m pip install --user --no-cache --force-reinstall wheelhouse/opencv*.whl
+        cd ${{ github.workspace }}/tests
+        python${{ matrix.python-version }} get_build_info.py
+
+    - name: run test
+      run: |
+        cd ${{ github.workspace }}/opencv
+        python${{ matrix.python-version }} modules/python/test/test.py -v --repo .
 
     - name: saving artifacts
       uses: actions/upload-artifact@v2

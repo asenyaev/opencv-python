@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9, 3.10.0-rc.1]
+        python-version: [3.10.0-rc.1] # [3.6, 3.7, 3.8, 3.9, 3.10.0-rc.1]
         platform: [x86, x64]
         with_contrib: [0, 1]
         without_gui: [0, 1]
