@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Windows
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/cygwin
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_macos*'
@@ -14,16 +14,13 @@ on:
 jobs:
   build-windows-x86_64:
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        shell: powershell
 
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9]
-        platform: [x86, x64]
+        python-version: [3.8] # [3.6, 3.7, 3.8, 3.9]
+        platform: [x64] # [x86, x64]
         with_contrib: [0, 1]
         without_gui: [0, 1]
         build_sdist: [0]
@@ -34,6 +31,7 @@ jobs:
       ENABLE_HEADLESS: ${{ matrix.without_gui }}
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
       OPENCV_TEST_DATA_PATH: ${{ github.workspace }}\opencv_extra\testdata
+      CI_BUILD: 1
 
     steps:
     - name: Checkout
@@ -42,40 +40,51 @@ jobs:
         submodules: false
         fetch-depth: 0
 
-    - name: Update submodules
-      if: github.event_name == 'pull_request'
-      run: git submodule update --remote
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+    - name: Install Cygwin
+      uses: egor-tensin/setup-cygwin@v3
       with:
-        python-version: ${{ matrix.python-version }}
-        architecture: ${{ matrix.platform }}
-
-    - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
+        platform: x64
+        install-dir: 'C:\tools\cygwin'
+        packages: >
+          python38-devel python38-zipp python38-importlib-metadata
+          python38-cython python38-pip python38-wheel python38-cffi
+          python38-pytz python38-setuptools python38-pytest
+          python38-hypothesis liblapack-devel libopenblas
+          gcc-fortran git dash
+    - name: Set Windows PATH
+      uses: egor-tensin/cleanup-path@v1
+      with:
+        dirs: 'C:\tools\cygwin\bin;C:\tools\cygwin\lib\lapack'
+    - name: Verify that bash is Cygwin bash
+      run: |
+        command bash
+        bash -c "uname -svrmo"
+    - name: Update with Cygwin git
+      # fetch-depth=0 above should make this short.
+      run: |
+        dash -c "which git; /usr/bin/git fetch --all -p"
+    - name: Verify python version
+      # Make sure it's the Cygwin one, not a Windows one
+      run: |
+        dash -c "which python3.8; /usr/bin/python3.8 --version -V"
 
     - name: build script
       run: |
-        python --version
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade setuptools
-        set "CI_BUILD=1" && python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
-      shell: cmd
+        dash -c "/usr/bin/python3.8 -m pip install --upgrade pip"
+        dash -c "/usr/bin/python3.8 -m pip install 'setuptools<49.2.0' pytest pytz cffi pickle5 importlib_metadata typing_extensions"
+        dash -c "/usr/bin/python3.8 -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose"
 
     - name: before test
       run: |
-        git submodule update --init --recursive
-        cd ${{ github.workspace }}/tests
-        &python -m pip install --user --no-warn-script-location (ls "../wheelhouse/opencv*.whl")
-        if ($LastExitCode -ne 0) {throw $LastExitCode}
-        python get_build_info.py
-      shell: powershell
+        dash -c "/usr/bin/git submodule update --init --recursive"
+        dash -c "/usr/bin/python3.8 -m pip install --user --no-warn-script-location wheelhouse/opencv*.whl""
+        dash -c "/usr/bin/cd ${{ github.workspace }}/tests"
+        dash -c "/usr/bin/python3.8 get_build_info.py"
 
     - name: run test
       run: |
-        cd ${{ github.workspace }}/opencv
-        python modules\python\test\test.py -v --repo .
+        dash -c "/usr/bin/cd ${{ github.workspace }}/opencv"
+        dash -c "/usr/bin/python3.8 modules\python\test\test.py -v --repo ."
       shell: cmd
 
     - name: saving artifacts
