@@ -51,22 +51,11 @@ jobs:
           python38-pytz python38-setuptools python38-pytest
           python38-hypothesis liblapack-devel libopenblas
           gcc-core gcc-fortran git dash cmake
+
     - name: Set Windows PATH
       uses: egor-tensin/cleanup-path@v1
       with:
         dirs: 'C:\tools\cygwin\bin;C:\tools\cygwin\lib\lapack'
-    - name: Verify that bash is Cygwin bash
-      run: |
-        command bash
-        bash -c "uname -svrmo"
-    - name: Update with Cygwin git
-      # fetch-depth=0 above should make this short.
-      run: |
-        dash -c "which git; /usr/bin/git fetch --all -p"
-    - name: Verify python version
-      # Make sure it's the Cygwin one, not a Windows one
-      run: |
-        dash -c "which python3.8; /usr/bin/python3.8 --version -V"
 
     - name: build script
       run: |
