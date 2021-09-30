@@ -71,7 +71,7 @@ jobs:
     - name: build script
       run: |
         dash -c "/usr/bin/python3.8 -m pip install --upgrade pip"
-        dash -c "/usr/bin/python3.8 -m pip install --upgrade setuptools"
+        dash -c "/usr/bin/python3.8 -m pip install --upgrade setuptools cmake"
         dash -c "/usr/bin/python3.8 -m pip wheel --wheel-dir=wheelhouse . --verbose"
 
     - name: before test
