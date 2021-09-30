@@ -54,11 +54,6 @@ jobs:
         submodules: false
         fetch-depth: 0
 
-    - uses: actions/download-artifact@v2
-      with:
-        name: openblas
-        path: OpenBLAS/
-
     - name: Update submodules
       if: github.event_name == 'pull_request'
       run: git submodule update --remote
