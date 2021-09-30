@@ -70,7 +70,7 @@ jobs:
 
     - name: build script
       run: |
-        dash -c "/usr/bin/python3.8 -m pip install --upgrade pip setuptools wheel"
+        dash -c "/usr/bin/python3.8 -m pip install setuptools wheel"
         dash -c "/usr/bin/python3.8 -m pip wheel --wheel-dir=wheelhouse . --verbose"
 
     - name: before test
