@@ -71,8 +71,8 @@ jobs:
     - name: build script
       run: |
         dash -c "/usr/bin/python3.8 -m pip install --upgrade pip"
-        dash -c "/usr/bin/python3.8 -m pip install 'setuptools<49.2.0' pytest pytz cffi pickle5 importlib_metadata typing_extensions"
-        dash -c "/usr/bin/python3.8 -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose"
+        dash -c "/usr/bin/python3.8 -m pip install --upgrade setuptools"
+        dash -c "/usr/bin/python3.8 -m pip wheel --wheel-dir=wheelhouse . --verbose"
 
     - name: before test
       run: |
