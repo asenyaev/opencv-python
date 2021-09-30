@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Windows
 
 on:
-  pull_request:
+  push :
     branches:
-      - master
+      - asen/lapack_windows
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_macos*'
@@ -22,8 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9]
-        platform: [x86, x64]
+        python-version: [3.8] # [3.6, 3.7, 3.8, 3.9]
+        platform: [x64] # [x86, x64]
         with_contrib: [0, 1]
         without_gui: [0, 1]
         build_sdist: [0]
@@ -34,6 +34,7 @@ jobs:
       ENABLE_HEADLESS: ${{ matrix.without_gui }}
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
       OPENCV_TEST_DATA_PATH: ${{ github.workspace }}\opencv_extra\testdata
+      OpenBLAS_HOME: ${{ github.workspace }}\OpenBLAS
 
     steps:
     - name: Checkout
@@ -54,6 +55,19 @@ jobs:
 
     - name: Setup MSBuild.exe
       uses: warrenbuckley/Setup-MSBuild@v1
+
+    - name: openblas installation
+      run: |
+        git clone https://github.com/xianyi/OpenBLAS
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.7.0/Dynamic-MINGW/Win64/libblas.dll -o ${{ github.workspace }}\OpenBLAS\libblas.dll
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.7.0/Dynamic-MINGW/Win64/libblas.lib -o ${{ github.workspace }}\OpenBLAS\libblas.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.7.0/Dynamic-MINGW/Win64/liblapack.dll -o ${{ github.workspace }}\OpenBLAS\liblapack.dll
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.7.0/Dynamic-MINGW/Win64/liblapack.lib -o ${{ github.workspace }}\OpenBLAS\liblapack.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACK.lib -o ${{ github.workspace }}\OpenBLAS\LAPACK.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/BLAS.lib -o ${{ github.workspace }}\OpenBLAS\BLAS.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.5.0/Static-INTEL/Win64/LAPACKE.lib -o ${{ github.workspace }}\OpenBLAS\LAPACKE.lib
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.7.0/Dynamic-MINGW/Win64/liblapacke.dll -o ${{ github.workspace }}\OpenBLAS\liblapacke.dll
+        curl https://icl.cs.utk.edu/lapack-for-windows/libraries/VisualStudio/3.7.0/Dynamic-MINGW/Win64/liblapacke.lib -o ${{ github.workspace }}\OpenBLAS\liblapacke.lib
 
     - name: build script
       run: |
