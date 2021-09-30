@@ -13,33 +13,8 @@ on:
 
 
 jobs:
-  openblas:
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        shell: bash
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-
-    steps:
-    - name: Install OpenBLAS
-      run: |
-        git clone -b v0.3.3 https://github.com/xianyi/OpenBLAS
-        nproc
-        cd OpenBLAS && make FC=gfortran -j $(nproc)
-
-    - name: saving artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: openblas
-        path: OpenBLAS/cblas.h
-
   build:
     runs-on: ${{ matrix.os }}
-    needs: [openblas]
     defaults:
       run:
         shell: bash
@@ -111,7 +86,6 @@ jobs:
 
   build_sdist:
     runs-on: ${{ matrix.os }}
-    needs: [openblas]
     defaults:
       run:
         shell: bash
