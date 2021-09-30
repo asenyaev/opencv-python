@@ -70,7 +70,8 @@ jobs:
 
     - name: build script
       run: |
-        dash -c "/usr/bin/python3.8 -m pip install --upgrade --no-use-pep517 pip setuptools wheel cmake"
+        dash -c "/usr/bin/python3.8 -m pip install --upgrade pip setuptools wheel"
+        dash -c "/usr/bin/python3.8 -m pip install --upgrade --no-use-pep517 cmake"
         dash -c "/usr/bin/python3.8 -m pip wheel --no-use-pep517 --wheel-dir=wheelhouse . --verbose"
 
     - name: before test
