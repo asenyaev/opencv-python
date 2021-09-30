@@ -50,7 +50,7 @@ jobs:
           python38-cython python38-pip python38-wheel python38-cffi
           python38-pytz python38-setuptools python38-pytest
           python38-hypothesis liblapack-devel libopenblas
-          gcc-core gcc-fortran git dash
+          gcc-core gcc-fortran git dash cmake
     - name: Set Windows PATH
       uses: egor-tensin/cleanup-path@v1
       with:
@@ -71,7 +71,6 @@ jobs:
     - name: build script
       run: |
         dash -c "/usr/bin/python3.8 -m pip install --upgrade pip setuptools wheel"
-        dash -c "/usr/bin/python3.8 -m pip install --upgrade --no-use-pep517 cmake"
         dash -c "/usr/bin/python3.8 -m pip wheel --no-use-pep517 --wheel-dir=wheelhouse . --verbose"
 
     - name: before test
