@@ -69,8 +69,7 @@ def main():
     )
 
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
-    if os.environ.get('matrix.os') == 'windows-latest' and os.environ.get('matrix.platform') == 'x64':
-        x64 = 'x64'
+    x64 = 'x64'
 
     package_name = "opencv-python"
 
@@ -98,7 +97,7 @@ def main():
     # Path regexes with forward slashes relative to CMake install dir.
     rearrange_cmake_output_data = {
         "cv2": (
-            [r"bin/opencv_videoio_ffmpeg\d{3}%s\.dll" % ("_64" if x64 else "")]
+            [r"bin/opencv_videoio_ffmpeg\d{3}%s\.dll" % ("_64" if x64 == 'x64' else "")]
             if os.name == "nt"
             else []
         )
