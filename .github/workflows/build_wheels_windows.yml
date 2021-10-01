@@ -59,7 +59,7 @@ jobs:
 
     - name: build script
       run: |
-        dash -c "/usr/bin/python3.7 -m pip install setuptools wheel"
+        dash -c "/usr/bin/python3.7 -m pip install 'setuptools<49.2.0' wheel"
         dash -c "/usr/bin/python3.7 -m pip wheel --wheel-dir=wheelhouse . --verbose"
 
     - name: before test
