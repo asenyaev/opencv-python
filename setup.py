@@ -152,6 +152,12 @@ def main():
             "-DBUILD_DOCS=OFF",
         ]
         + (
+            # When is not defined 'linker flags: /machine:X86' if x64 on Windows
+            ["-DCMAKE_GENERATOR_PLATFORM=x64"]
+            if x64
+            else []
+          )
+        + (
             ["-DOPENCV_EXTRA_MODULES_PATH=" + os.path.abspath("opencv_contrib/modules")]
             if build_contrib
             else []
