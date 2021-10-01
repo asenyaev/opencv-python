@@ -34,6 +34,7 @@ jobs:
       ENABLE_HEADLESS: ${{ matrix.without_gui }}
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
       OPENCV_TEST_DATA_PATH: ${{ github.workspace }}\opencv_extra\testdata
+      CI_BUILD: 1
 
     steps:
     - name: Checkout
@@ -64,7 +65,7 @@ jobs:
         python --version
         python -m pip install --upgrade pip
         python -m pip install --upgrade setuptools
-        set "CI_BUILD=1" && python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
+        python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
       shell: cmd
 
     - name: before test
