@@ -154,7 +154,7 @@ def main():
         + (
             # When is not defined 'linker flags: /machine:X86' if x64 on Windows
             ["-DCMAKE_GENERATOR_PLATFORM=x64"]
-            if x64
+            if x64 and sys.platform == "win32"
             else []
           )
         + (
