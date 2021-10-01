@@ -69,7 +69,8 @@ def main():
     )
 
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
-    x64 = sys.maxsize > 2 ** 32
+    if os.environ['matrix.os'] == 'windows-latest' and os.environ['matrix.platform'] == 'x64':
+        x64 = 'x64'
 
     package_name = "opencv-python"
 
@@ -119,7 +120,7 @@ def main():
     files_outside_package_dir = {"cv2": ["LICENSE.txt", "LICENSE-3RD-PARTY.txt"]}
 
     ci_cmake_generator = (
-        ["-G", "Visual Studio 14" + (" Win64" if x64 else "")]
+        ["-G", "Visual Studio 14" + (" Win64" if x64 == 'x64' else "")]
         if os.name == "nt"
         else ["-G", "Unix Makefiles"]
     )
