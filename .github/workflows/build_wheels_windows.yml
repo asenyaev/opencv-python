@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Windows
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/test_win_64
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_macos*'
@@ -57,6 +57,7 @@ jobs:
 
     - name: build script
       run: |
+        python -c "import sys;print(\"%x" % sys.maxsize, sys.maxsize > 2**32)"
         python --version
         python -m pip install --upgrade pip
         python -m pip install --upgrade setuptools
