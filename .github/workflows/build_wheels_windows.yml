@@ -22,8 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9]
-        platform: [x86, x64]
+        python-version: [3.8] # [3.6, 3.7, 3.8, 3.9]
+        platform: [x64] # [x86, x64]
         with_contrib: [0, 1]
         without_gui: [0, 1]
         build_sdist: [0]
@@ -57,7 +57,7 @@ jobs:
 
     - name: build script
       run: |
-        python -c "import sys;print(\"%x" % sys.maxsize, sys.maxsize > 2**32)"
+        python -c "import sys;print(\"%x\" % sys.maxsize, sys.maxsize > 2**32)"
         python --version
         python -m pip install --upgrade pip
         python -m pip install --upgrade setuptools
