@@ -95,7 +95,7 @@ function pre_build {
   if [ -n "$IS_OSX" ]; then
     brew install lapack
   else
-    yum install -y lapack-devel openblas-devel
+    yum install -y lapack-devel blas-devel
     cp /usr/include/lapacke/lapacke*.h /usr/include/
     curl https://raw.githubusercontent.com/xianyi/OpenBLAS/v0.3.3/cblas.h -o /usr/include/cblas.h
   fi
