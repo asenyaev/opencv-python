@@ -55,9 +55,12 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.3
 
+    - name: check platform
+      run: python3 -c 'import sys;print("%x" % sys.maxsize, sys.maxsize > 2**32)'
+      shell: bash
+
     - name: build script
       run: |
-        python -c "import sys;print("%x" % sys.maxsize, sys.maxsize > 2**32)"
         python --version
         python -m pip install --upgrade pip
         python -m pip install --upgrade setuptools
