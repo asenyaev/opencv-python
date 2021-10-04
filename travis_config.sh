@@ -147,6 +147,7 @@ function pre_build {
 
   else
     echo "Running for linux"
+    export CMAKE_BUILD_PARALLEL_LEVEL=$(nproc)
   fi
 }
 
