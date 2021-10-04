@@ -71,6 +71,8 @@ def main():
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
     x64 = sys.maxsize > 2 ** 32
 
+    os.environ['CMAKE_BUILD_PARALLEL_LEVEL'] = str(os.cpu_count())
+
     package_name = "opencv-python"
 
     if build_contrib and not build_headless:
