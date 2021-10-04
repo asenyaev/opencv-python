@@ -119,14 +119,15 @@ def main():
     files_outside_package_dir = {"cv2": ["LICENSE.txt", "LICENSE-3RD-PARTY.txt"]}
 
     ci_cmake_generator = (
-        ["-G", "Visual Studio 16" + (" Win64" if x64 else "")]
+        ["-G", "Visual Studio 14" + (" Win64" if x64 else "")]
         if os.name == "nt"
         else ["-G", "Unix Makefiles"]
     )
 
     cmake_args = (
         (ci_cmake_generator if is_CI_build else [])
-        + [
+        + " -j " + os.cpu_count() +
+          [
             # skbuild inserts PYTHON_* vars. That doesn't satisfy opencv build scripts in case of Py3
             "-DPYTHON3_EXECUTABLE=%s" % sys.executable,
             "-DPYTHON3_INCLUDE_DIR=%s" % python_include_dir,
