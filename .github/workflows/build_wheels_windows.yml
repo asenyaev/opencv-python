@@ -65,7 +65,8 @@ jobs:
     - name: cmake build
       run: |
         bash -c "/usr/bin/python3.7 -m pip install wheel setuptools"
-        bash -c "/usr/bin/git clone https://github.com/scikit-build/cmake-python-distributions.git; cd cmake-python-distributions; /usr/bin/python3.7 -m pip install -r requirements-dev.txt; /usr/bin/python3.7 setup.py bdist_wheel; /usr/bin/python3.7 -m pip install dist/*"
+        bash -c "/usr/bin/git clone https://github.com/scikit-build/cmake-python-distributions.git; cd cmake-python-distributions; /usr/bin/python3.7 -m pip install -r requirements-dev.txt; /usr/bin/python3.7 setup.py bdist_wheel" 
+        bash -c "/usr/bin/python3.7 -m pip install dist/*"
 
     - name: build script
       run: |
