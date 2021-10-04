@@ -61,7 +61,7 @@ jobs:
       run: |
         dash -c "/usr/bin/python3.7 -m pip install wheel setuptools"
         dash -c "/usr/bin/git clone https://github.com/scikit-build/cmake-python-distributions.git"
-        dash -c "/usr/bin/cd cmake-python-distributions"
+        bash -c "cd cmake-python-distributions"
         dash -c "/usr/bin/python3.7 -m pip install -r requirements-dev.txt"
         dash -c "/usr/bin/python3.7 setup.py bdist_wheel"
         dash -c "/usr/bin/python3.7 -m pip install dist/*"
