@@ -60,7 +60,8 @@ jobs:
         python --version
         python -m pip install --upgrade pip
         python -m pip install --upgrade setuptools
-        set "CI_BUILD=1" && python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
+        set CMAKE_BUILD_PARALLEL_LEVEL=%NUMBER_OF_PROCESSORS% & CI_BUILD=1
+        python -m pip wheel --wheel-dir=%cd%\wheelhouse . --verbose
       shell: cmd
 
     - name: before test
