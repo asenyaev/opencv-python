@@ -145,6 +145,7 @@ function pre_build {
     # Have to install macpython late to avoid conflict with Homebrew Python update
     before_install
 
+    export CMAKE_BUILD_PARALLEL_LEVEL=$(sysctl -n hw.ncpu)
   else
     echo "Running for linux"
     export CMAKE_BUILD_PARALLEL_LEVEL=$(nproc)
