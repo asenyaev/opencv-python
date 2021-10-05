@@ -90,6 +90,7 @@ jobs:
         git submodule update --init --recursive
         install_run $PLAT
         set +x
+        echo 'finished'
 
     - name: saving artifacts
       uses: actions/upload-artifact@v2
