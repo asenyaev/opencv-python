@@ -41,7 +41,7 @@ jobs:
       NP_TEST_DEP: numpy==1.19.4
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       CONFIG_PATH: travis_config.sh
-      DOCKER_IMAGE: quay.io/skvark/manylinux2014_${PLAT}
+      DOCKER_IMAGE: quay.io/asenyaev/manylinux2014_${PLAT}
       DOCKER_TEST_IMAGE: multibuild/xenial_arm64v8
       USE_CCACHE: 0
       UNICODE_WIDTH: 32
