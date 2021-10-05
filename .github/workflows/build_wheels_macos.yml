@@ -77,6 +77,7 @@ jobs:
 
     - name: before install
       run: |
+        python3 -m pip install -U numpy
         set -e
         git submodule update --init multibuild
         source multibuild/common_utils.sh
