@@ -59,12 +59,12 @@ jobs:
       if: github.event_name == 'pull_request'
       run: git submodule update --remote
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      if: ${{ 'macos-latest' == matrix.os }}
-      with:
-        python-version: ${{ matrix.python-version }}
-        architecture: ${{ matrix.platform }}
+   # - name: Set up Python ${{ matrix.python-version }}
+   #   uses: actions/setup-python@v2
+   #   if: ${{ 'macos-latest' == matrix.os }}
+   #   with:
+   #     python-version: ${{ matrix.python-version }}
+   #     architecture: ${{ matrix.platform }}
 
     - name: Setup Environment variables
       run: |
