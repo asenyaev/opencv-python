@@ -20,7 +20,7 @@ function bdist_wheel_cmd {
       TOOLS_PATH=/opt/_internal/tools
       /opt/python/cp37-cp37m/bin/python -m venv $TOOLS_PATH
       source $TOOLS_PATH/bin/activate
-      python$PYTHON_VERSION -m pip install auditwheel
+      python$PYTHON_VERSION -m pip install auditwheel==4.0.0
       python$PYTHON_VERSION patch_auditwheel_whitelist.py
       deactivate
     fi
