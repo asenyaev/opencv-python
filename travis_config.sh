@@ -20,6 +20,7 @@ function bdist_wheel_cmd {
       TOOLS_PATH=/opt/_internal/tools
       /opt/python/cp37-cp37m/bin/python -m venv $TOOLS_PATH
       source $TOOLS_PATH/bin/activate
+      python$PYTHON_VERSION -m pip install auditwheel==3.2.0
       python$PYTHON_VERSION patch_auditwheel_whitelist.py
       deactivate
     fi
@@ -99,7 +100,6 @@ function pre_build {
     yum install -y lapack-devel epel-release && yum install -y openblas-devel
     cp /usr/include/lapacke/lapacke*.h /usr/include/
     curl https://raw.githubusercontent.com/xianyi/OpenBLAS/v0.3.3/cblas.h -o /usr/include/cblas.h
-    python$PYTHON_VERSION -m pip install auditwheel==3.2.0
   fi
 
   if [ -n "$IS_OSX" ]; then
