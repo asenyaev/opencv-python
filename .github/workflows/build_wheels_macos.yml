@@ -38,6 +38,7 @@ jobs:
       TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
       MB_ML_VER: 2014
       NP_TEST_DEP: numpy==1.19.4
+      NP_TEST_DEP_3_10: numpy==1.21.2
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       CONFIG_PATH: travis_config.sh
       DOCKER_IMAGE: quay.io/asenyaev/manylinux2014_${PLAT}
@@ -72,12 +73,10 @@ jobs:
         if [ "schedule" == "${{ github.event_name }}" ]; then echo "BUILD_COMMIT=master" >> $GITHUB_ENV; else echo "BUILD_COMMIT=$BUILD_COMMIT" >> $GITHUB_ENV; fi
         if [ "x64" == "${{ matrix.platform }}" ]; then echo "PLAT=x86_64" >> $GITHUB_ENV; fi
         if [ "x86" == "${{ matrix.platform }}" ]; then echo "PLAT=i686" >> $GITHUB_ENV; fi
-        echo "BUILD_DEPENDS=$(echo $NP_BUILD_DEP)" >> $GITHUB_ENV;
-        echo "TEST_DEPENDS=$(echo $NP_TEST_DEP)" >> $GITHUB_ENV;
+        if [ "3.10" == "${{ matrix.python-version }}" ]; then echo "TEST_DEPENDS=$(echo $NP_TEST_DEP_3_10)" >> $GITHUB_ENV; else echo "TEST_DEPENDS=$(echo $NP_TEST_DEP)" >> $GITHUB_ENV; fi
 
     - name: before install
       run: |
-        python3 -m pip install -U numpy
         set -e
         git submodule update --init multibuild
         source multibuild/common_utils.sh
