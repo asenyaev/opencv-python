@@ -22,7 +22,7 @@ function bdist_wheel_cmd {
       source $TOOLS_PATH/bin/activate
       python$PYTHON_VERSION -m pip install auditwheel==3.2.0
       python$PYTHON_VERSION patch_auditwheel_whitelist.py
-      rm wheelhouse/numpy*
+      rm /io/wheelhouse/numpy*
       deactivate
     fi
     if [ -n "$USE_CCACHE" -a -z "$BREW_BOOTSTRAP_MODE" ]; then ccache -s; fi
