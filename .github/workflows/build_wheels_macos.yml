@@ -22,17 +22,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-10.15, macos-11]
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        os: [macos-10.15]
+        python-version: ['3.6', '3.7', '3.8', '3.9']
         platform: [x64]
         with_contrib: [0, 1]
         without_gui: [0, 1]
         build_sdist: [0]
-        exclude:
-          - os: macos-10.15
-            python-version: ['3.10']
+        include:
           - os: macos-11
-            python-version: ['3.6', '3.7', '3.8', '3.9']
+            python-version: ['3.10']
+            platform: [x64]
+            with_contrib: [0, 1]
+            without_gui: [0, 1]
+            build_sdist: [0]
 
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
