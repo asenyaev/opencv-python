@@ -85,6 +85,7 @@ jobs:
         source multibuild/travis_steps.sh
         echo $ENABLE_CONTRIB > contrib.enabled
         echo $ENABLE_HEADLESS > headless.enabled
+        python${{ matrix.python-version }} -m pip install $NP_TEST_DEP_3_10
         set -x
         build_wheel $REPO_DIR $PLAT
         git submodule update --init --recursive
