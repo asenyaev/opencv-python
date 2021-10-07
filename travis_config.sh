@@ -22,6 +22,7 @@ function bdist_wheel_cmd {
       source $TOOLS_PATH/bin/activate
       python$PYTHON_VERSION -m pip install auditwheel==3.2.0
       python$PYTHON_VERSION patch_auditwheel_whitelist.py
+      # to avoid issues with numpy wheels
       rm /io/wheelhouse/numpy*
       deactivate
     fi
