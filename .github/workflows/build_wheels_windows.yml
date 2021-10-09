@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Windows trigger
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/just_try
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_macos*'
