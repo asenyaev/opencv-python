@@ -70,13 +70,18 @@ def main():
         build_contrib, build_headless, is_CI_build
     )
 
-#     with open('opencv/modules/python/package/cv2/__init__.py', 'r') as f:
-#         print("WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT ")
-#         with open("cv2/__init__.py", "a") as f1:
-#             for skip_lines in range(6):
-#                 next(f)
-#             for line in f:
-#                 f1.write(line.replace('importlib.import_module("cv2")', 'importlib.import_module("cv2.cv2")'))
+    with open('opencv/modules/python/package/cv2/__init__.py', 'r') as opencv_init:
+        opencv_init_data = ""
+        with open("scripts/__init__.py", "r") as custom_init:
+            custom_init_data = custom_init.read()
+            for skip_lines in range(6):
+                next(opencv_init)
+            for line in opencv_init:
+                opencv_init_replacement = line.replace('importlib.import_module("cv2")', 'importlib.import_module("cv2.cv2")')
+                opencv_init_data = opencv_init_data + opencv_init_replacement
+            merged_init = custom_init_data + opencv_init_data
+            with open('cv2/__init__.py', 'w') as opencv_python_init:
+                opencv_python_init.write(merged_init)
 
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
     x64 = sys.maxsize > 2 ** 32
