@@ -70,6 +70,14 @@ def main():
         build_contrib, build_headless, is_CI_build
     )
 
+    with open('opencv/modules/python/package/cv2/__init__.py', 'r') as f:
+        print("WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT ")
+        with open("cv2/__init__.py", "a") as f1:
+            for skip_lines in range(6):
+                next(f)
+            for line in f:
+                f1.write(line.replace('importlib.import_module("cv2")', 'importlib.import_module("cv2.cv2")'))
+
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
     x64 = sys.maxsize > 2 ** 32
 
@@ -108,11 +116,27 @@ def main():
         # Naming conventions vary so widely between versions and OSes
         # had to give up on checking them.
         [
-            "python/cv2[^/]*%(ext)s"
-            % {"ext": re.escape(sysconfig.get_config_var("EXT_SUFFIX"))}
+            "python/cv2/python-%s.%s/cv2[^/]*%s"
+            % (sys.version_info[0], sys.version_info[1], re.escape(sysconfig.get_config_var("EXT_SUFFIX")))
+        ]
+        +
+        [
+            r"python/cv2/.*config.*.py"
         ],
         "cv2.data": [  # OPENCV_OTHER_INSTALL_PATH
             ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/.*\.xml"
+        ],
+        "cv2.gapi": [
+            ("etc" if os.name == "nt" else "python/cv2") + r"/gapi/.*\.py"
+        ],
+        "cv2.mat_wrapper": [
+            ("etc" if os.name == "nt" else "python/cv2") + r"/mat_wrapper/.*\.py"
+        ],
+        "cv2.misc": [
+            ("etc" if os.name == "nt" else "python/cv2") + r"/misc/.*\.py"
+        ],
+        "cv2.utils": [
+            ("etc" if os.name == "nt" else "python/cv2") + r"/utils/.*\.py"
         ],
     }
 
@@ -138,7 +162,7 @@ def main():
             # Disable the Java build by default as it is not needed
             "-DBUILD_opencv_java=%s" % build_java,
             # When off, adds __init__.py and a few more helper .py's. We use our own helper files with a different structure.
-            "-DOPENCV_SKIP_PYTHON_LOADER=ON",
+            "-DOPENCV_SKIP_PYTHON_LOADER=OFF",
             # Relative dir to install the built module to in the build tree.
             # The default is generated from sysconfig, we'd rather have a constant for simplicity
             "-DOPENCV_PYTHON3_INSTALL_PATH=python",
@@ -187,23 +211,23 @@ def main():
             and "bdist_wheel" in sys.argv
             and sys.platform.startswith("linux")
         ):
-            cmake_args.append("-DWITH_QT=5")
-            subprocess.check_call("patch -p1 < patches/patchQtPlugins", shell=True)
+#            cmake_args.append("-DWITH_QT=5")
+#            subprocess.check_call("patch -p1 < patches/patchQtPlugins", shell=True)
 
-            if sys.platform.startswith("linux"):
-                rearrange_cmake_output_data["cv2.qt.plugins.platforms"] = [
-                    (r"lib/qt/plugins/platforms/libqxcb\.so")
-                ]
+#            if sys.platform.startswith("linux"):
+#                rearrange_cmake_output_data["cv2.qt.plugins.platforms"] = [
+#                    (r"lib/qt/plugins/platforms/libqxcb\.so")
+#                ]
 
                 # add fonts for Qt5
-                fonts = []
-                for file in os.listdir("/usr/share/fonts/dejavu"):
-                    if file.endswith(".ttf"):
-                        fonts.append(
-                            (r"lib/qt/fonts/dejavu/%s\.ttf" % file.split(".")[0])
-                        )
+#                fonts = []
+#                for file in os.listdir("/usr/share/fonts/dejavu"):
+#                    if file.endswith(".ttf"):
+#                        fonts.append(
+#                            (r"lib/qt/fonts/dejavu/%s\.ttf" % file.split(".")[0])
+#                        )
 
-                rearrange_cmake_output_data["cv2.qt.fonts"] = fonts
+#                rearrange_cmake_output_data["cv2.qt.fonts"] = fonts
 
             if sys.platform == "darwin":
                 rearrange_cmake_output_data["cv2.qt.plugins.platforms"] = [
