@@ -70,13 +70,13 @@ def main():
         build_contrib, build_headless, is_CI_build
     )
 
-    with open('opencv/modules/python/package/cv2/__init__.py', 'r') as f:
-        print("WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT ")
-        with open("cv2/__init__.py", "a") as f1:
-            for skip_lines in range(6):
-                next(f)
-            for line in f:
-                f1.write(line.replace('importlib.import_module("cv2")', 'importlib.import_module("cv2.cv2")'))
+#     with open('opencv/modules/python/package/cv2/__init__.py', 'r') as f:
+#         print("WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT WHAT ")
+#         with open("cv2/__init__.py", "a") as f1:
+#             for skip_lines in range(6):
+#                 next(f)
+#             for line in f:
+#                 f1.write(line.replace('importlib.import_module("cv2")', 'importlib.import_module("cv2.cv2")'))
 
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
     x64 = sys.maxsize > 2 ** 32
