@@ -127,16 +127,16 @@ def main():
             ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/.*\.xml"
         ],
         "cv2.gapi": [
-            ("etc" if os.name == "nt" else "python/cv2") + r"/gapi/.*\.py"
+            "python/cv2" + r"/gapi/.*\.py"
         ],
         "cv2.mat_wrapper": [
-            ("etc" if os.name == "nt" else "python/cv2") + r"/mat_wrapper/.*\.py"
+            "python/cv2" + r"/mat_wrapper/.*\.py"
         ],
         "cv2.misc": [
-            ("etc" if os.name == "nt" else "python/cv2") + r"/misc/.*\.py"
+            "python/cv2" + r"/misc/.*\.py"
         ],
         "cv2.utils": [
-            ("etc" if os.name == "nt" else "python/cv2") + r"/utils/.*\.py"
+            "python/cv2" + r"/utils/.*\.py"
         ],
     }
 
