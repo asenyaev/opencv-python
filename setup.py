@@ -70,19 +70,6 @@ def main():
         build_contrib, build_headless, is_CI_build
     )
 
-    with open('opencv/modules/python/package/cv2/__init__.py', 'r') as opencv_init:
-        opencv_init_data = ""
-        with open("scripts/__init__.py", "r") as custom_init:
-            custom_init_data = custom_init.read()
-            for skip_lines in range(6):
-                next(opencv_init)
-            for line in opencv_init:
-                opencv_init_replacement = line.replace('importlib.import_module("cv2")', 'importlib.import_module("cv2.cv2")')
-                opencv_init_data = opencv_init_data + opencv_init_replacement
-            merged_init = custom_init_data + opencv_init_data
-            with open('cv2/__init__.py', 'w') as opencv_python_init:
-                opencv_python_init.write(merged_init)
-
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
     x64 = sys.maxsize > 2 ** 32
 
@@ -123,6 +110,10 @@ def main():
         [
             "python/cv2/python-%s.%s/cv2[^/]*%s"
             % (sys.version_info[0], sys.version_info[1], re.escape(sysconfig.get_config_var("EXT_SUFFIX")))
+        ]
+        +
+        [
+            r"python/cv2/__init__.py"
         ]
         +
         [
@@ -386,6 +377,22 @@ class RearrangeCMakeOutput(object):
         final_install_relpaths = []
 
         print("Copying files from CMake output")
+
+        with open('%spython/cv2/__init__.py'
+         % cmake_install_dir, 'r') as opencv_init:
+            opencv_init_data = ""
+            for line in opencv_init:
+                opencv_init_replacement = line.replace('importlib.import_module("cv2")', 'importlib.import_module("cv2.cv2")')
+                opencv_init_data = opencv_init_data + opencv_init_replacement
+        with open('%spython/cv2/__init__.py'
+        % cmake_install_dir, 'w') as opencv_python_init:
+            opencv_python_init.write(opencv_init_data)
+
+        with open('scripts/__init__.py', 'r') as custom_init:
+            custom_init_data = custom_init.read()
+        with open('%spython/cv2/config-%s.%s.py'
+        % (cmake_install_dir, sys.version_info[0], sys.version_info[1]), 'a') as opencv_init_config:
+            opencv_init_config.write(custom_init_data)
 
         for package_name, relpaths_re in cls.package_paths_re.items():
             package_dest_reldir = package_name.replace(".", os.path.sep)
