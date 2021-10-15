@@ -216,23 +216,23 @@ def main():
             and "bdist_wheel" in sys.argv
             and sys.platform.startswith("linux")
         ):
-#            cmake_args.append("-DWITH_QT=5")
-#            subprocess.check_call("patch -p1 < patches/patchQtPlugins", shell=True)
+            cmake_args.append("-DWITH_QT=5")
+            subprocess.check_call("patch -p1 < patches/patchQtPlugins", shell=True)
 
-#            if sys.platform.startswith("linux"):
-#                rearrange_cmake_output_data["cv2.qt.plugins.platforms"] = [
-#                    (r"lib/qt/plugins/platforms/libqxcb\.so")
-#                ]
+            if sys.platform.startswith("linux"):
+                rearrange_cmake_output_data["cv2.qt.plugins.platforms"] = [
+                    (r"lib/qt/plugins/platforms/libqxcb\.so")
+                ]
 
                 # add fonts for Qt5
-#                fonts = []
-#                for file in os.listdir("/usr/share/fonts/dejavu"):
-#                    if file.endswith(".ttf"):
-#                        fonts.append(
-#                            (r"lib/qt/fonts/dejavu/%s\.ttf" % file.split(".")[0])
-#                        )
+                fonts = []
+                for file in os.listdir("/usr/share/fonts/dejavu"):
+                    if file.endswith(".ttf"):
+                        fonts.append(
+                            (r"lib/qt/fonts/dejavu/%s\.ttf" % file.split(".")[0])
+                        )
 
-#                rearrange_cmake_output_data["cv2.qt.fonts"] = fonts
+                rearrange_cmake_output_data["cv2.qt.fonts"] = fonts
 
             if sys.platform == "darwin":
                 rearrange_cmake_output_data["cv2.qt.plugins.platforms"] = [
