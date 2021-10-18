@@ -86,13 +86,12 @@ def main():
 
     long_description = io.open("README.md", encoding="utf-8").read()
 
-    packages = ["cv2", "cv2.data"]
+    packages = ["cv2"]
 
     package_data = {
         "cv2": ["*%s" % sysconfig.get_config_vars().get("SO"), "version.py"]
         + (["*.dll"] if os.name == "nt" else [])
         + ["LICENSE.txt", "LICENSE-3RD-PARTY.txt"],
-        "cv2.data": ["*.xml"],
     }
 
     # Files from CMake output to copy to package.
@@ -120,7 +119,7 @@ def main():
             r"python/cv2/.*config.*.py"
         ],
         "cv2.data": [  # OPENCV_OTHER_INSTALL_PATH
-            ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/.*\.xml"
+            ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/.*"
         ],
         "cv2.gapi": [
             "python/cv2" + r"/gapi/.*\.py"
@@ -376,8 +375,13 @@ class RearrangeCMakeOutput(object):
 
         print("Copying files from CMake output")
 
+        with open('scripts/data_init.py', 'r') as data_init:
+            data_init_lines = data_init.read()
+        with open(cmake_install_dir + ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/__init__.py", 'w') as package_data_init:
+            package_data_init.write(data_init_lines)
+
         # add lines from the old __init__.py file to the config file
-        with open('scripts/__init__.py', 'r') as custom_init:
+        with open('scripts/extra_init.py', 'r') as custom_init:
             custom_init_data = custom_init.read()
         with open('%spython/cv2/config-%s.%s.py'
         % (cmake_install_dir, sys.version_info[0], sys.version_info[1]), 'w') as opencv_init_config:
