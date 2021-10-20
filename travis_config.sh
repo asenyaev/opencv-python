@@ -96,7 +96,7 @@ function pre_build {
   set -e -o pipefail
 
   if [ -n "$IS_OSX" ]; then
-    brew install lapack
+    brew install lapack openblas
     export LDFLAGS="-L/opt/homebrew/opt/lapack/lib"
     export CPPFLAGS="-I/opt/homebrew/opt/lapack/include"
     export PKG_CONFIG_PATH="/usr/local/opt/lapack/lib/pkgconfig"
