@@ -99,10 +99,8 @@ function pre_build {
     brew install lapack openblas
     export LDFLAGS="-L/opt/homebrew/opt/lapack/lib"
     export CPPFLAGS="-I/opt/homebrew/opt/lapack/include"
-    export PKG_CONFIG_PATH="/usr/local/opt/lapack/lib/pkgconfig"
     export LDFLAGS="-L/usr/local/opt/openblas/lib"
     export CPPFLAGS="-I/usr/local/opt/openblas/include"
-    export PKG_CONFIG_PATH="/usr/local/opt/openblas/lib/pkgconfig"
   else
     # epel-release need for aarch64 to get openblas packages
     yum install -y lapack-devel epel-release && yum install -y openblas-devel
