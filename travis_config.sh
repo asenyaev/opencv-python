@@ -97,6 +97,8 @@ function pre_build {
 
   if [ -n "$IS_OSX" ]; then
     brew install lapack
+    export LDFLAGS="-L/opt/homebrew/opt/lapack/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/lapack/include"
   else
     # epel-release need for aarch64 to get openblas packages
     yum install -y lapack-devel epel-release && yum install -y openblas-devel
