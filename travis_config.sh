@@ -17,12 +17,17 @@ function bdist_wheel_cmd {
     CI_BUILD=1 pip wheel --verbose --wheel-dir="$PWD/dist" . $BDIST_PARAMS
     cp dist/*.whl $abs_wheelhouse
     if [ -z "$IS_OSX" ]; then
-      TOOLS_PATH=/opt/_internal/tools
-      /opt/python/cp37-cp37m/bin/python -m venv $TOOLS_PATH
+#      TOOLS_PATH=/opt/_internal/tools
+#      /opt/python/cp37-cp37m/bin/python -m venv $TOOLS_PATH
+#      source $TOOLS_PATH/bin/activate
+#      python$PYTHON_VERSION -m pip install auditwheel==3.2.0
+#      python$PYTHON_VERSION patch_auditwheel_whitelist.py
+#      # to avoid issues with numpy wheels
+#      rm /io/wheelhouse/numpy*
+      TOOLS_PATH=/opt/_internal/pipx/venvs/auditwheel
+      /opt/python/cp39-cp39/bin/python -m venv $TOOLS_PATH
       source $TOOLS_PATH/bin/activate
-      python$PYTHON_VERSION -m pip install auditwheel==3.2.0
-      python$PYTHON_VERSION patch_auditwheel_whitelist.py
-      # to avoid issues with numpy wheels
+      python patch_auditwheel_whitelist.py
       rm /io/wheelhouse/numpy*
       deactivate
     fi
