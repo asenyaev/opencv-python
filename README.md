@@ -198,6 +198,68 @@ A release is made and uploaded to PyPI when a new tag is pushed to master branch
 
 The master branch follows OpenCV master branch releases. 3.4 branch follows OpenCV 3.4 bugfix releases.
 
+All actual OpenCV Python packages versions:
+
+Version | Packages | Platforms | Supported Python 
+--- | --- | --- | ---
+**4.x** | 
+4.5.4.58 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64 / aarch64<br>macOS: x86_64 / arm64<br>Windows: x86 / x64 | 3.6 _(no macOS arm64)_<br>3.7<br>3.8<br>3.9<br>3.10
+4.5.3.56 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64 / aarch64<br>macOS: x86_64 / arm64<br>Windows: x86 / x64 | 3.6 _(no macOS arm64)_<br>3.7<br>3.8<br>3.9
+4.5.2.54 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64 / aarch64<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6<br>3.7<br>3.8<br>3.9
+4.5.2.52 | opencv-python _(no source code)_<br>opencv-python-headless _(no source code)_<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6<br>3.7<br>3.8<br>3.9
+4.5.1.48 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64 / i686 / aarch64<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6<br>3.7<br>3.8<br>3.9
+4.4.0.44 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6<br>3.7<br>3.8
+4.4.0.42 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+4.4.0.40 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+4.3.0.38 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+4.3.0.36 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5 (no macOS)<br>3.6<br>3.7<br>3.8
+4.2.0.34 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+4.2.0.32 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.5<br>3.6<br>3.7<br>3.8
+4.1.2.30 | opencv-python _(no macOS for python 3.5)_<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.5<br>3.6<br>3.7<br>3.8
+4.1.1.26 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+4.1.0.25 _(deprecated)_ | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+4.0.1.24 _(deprecated)_ | opencv-python _(no macOS for python 3.4)_<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+4.0.1.23 _(deprecated)_ | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+4.0.0.21 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+**3.x** |
+3.4.16.57 | opencv-python<br>opencv-python-headless _(macOS only)_<br>opencv-contrib-python _(macOS only)_<br>opencv-contrib-python-headless _(macOS only)_<br>_*source code_ | Linux: x86_64<br>macOS: x86_64 / arm64<br>Windows: x86 / x64 | 3.6 _(no macOS arm64)_<br>3.7<br>3.8<br>3.9<br>3.10
+3.4.14.53 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / aarch64<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6 <br>3.7<br>3.8<br>3.9
+3.4.14.51 | opencv-python _(no source code)_<br>opencv-python-headless _(no source code)_<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>_*source code_ | Linux: x86_64<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6 <br>3.7<br>3.8<br>3.9
+3.4.13.47 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64 / i686 / aarch64<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6<br>3.7<br>3.8<br>3.9
+3.4.11.45 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6<br>3.7<br>3.8<br>3.9
+3.4.11.43 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.6<br>3.7<br>3.8
+3.4.11.41 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+3.4.11.39 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+3.4.10.37 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no source code)_<br>opencv-contrib-python-headless _(no source code)_<br>*_source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+3.4.10.35 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5 _(Linux, Windows only)_<br>3.6<br>3.7<br>3.8
+3.4.9.33 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 3.5<br>3.6<br>3.7<br>3.8
+3.4.9.31 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.5<br>3.6<br>3.7<br>3.8
+3.4.8.29 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.5<br>3.6<br>3.7<br>3.8
+3.4.7.28 _(deprecated)_ | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no macOS)_<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+3.4.6.27 _(deprecated)_ | opencv-python<br>opencv-python-headless<br>opencv-contrib-python _(no macOS)_<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+3.4.5.20 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+3.4.4.19 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+3.4.3.18 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+3.4.2.17 | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7
+3.4.2.16 _(deprecated)_ | opencv-python<br>opencv-python-headless<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6<br>3.7 _(no Linux x86_64)_
+3.4.1.15 | opencv-python<br>opencv-contrib-python<br>opencv-contrib-python-headless | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.4.0.14 _(deprecated)_ | opencv-python<br>opencv-contrib-python<br>opencv-contrib-python-headless<br>_*source code_ | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.4.0.12 | opencv-python<br>opencv-contrib-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.3.1.11 | opencv-python<br>opencv-contrib-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.3.0.10 | opencv-python<br>opencv-contrib-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.3.0.9 | opencv-python<br>opencv-contrib-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.2.0.8 | opencv-python<br>opencv-contrib-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.2.0.7 | opencv-python<br>opencv-contrib-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.2.0.6 | opencv-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.4<br>3.5<br>3.6
+3.1.0.5 | opencv-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.3 _(Linux only)_<br>3.4<br>3.5<br>3.6
+3.1.0.4 | opencv-python | Linux: x86_64 / i686<br>macOS: x86_64 | 2.7<br>3.3 _(Linux only)_<br>3.4<br>3.5<br>3.6
+3.1.0.3 | opencv-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.3 _(Linux only)_<br>3.4 _(Linux, macOS only)_<br>3.5
+3.1.0.2 | opencv-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.3 _(Linux only)_<br>3.4 _(Linux, macOS only)_<br>3.5
+3.1.0.1 | opencv-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.3 _(Linux only)_<br>3.4 _(Linux, macOS only)_<br>3.5 _(Linux, Windows only)_
+3.1.0.0 | opencv-python | Linux: x86_64 / i686<br>macOS: x86_64<br>Windows: x86 / x64 | 2.7<br>3.3 _(Linux only)_<br>3.4 _(Linux, macOS only)_<br>3.5 _(Linux, Windows only)_
+
+_* **Deprecated** releases have no wheels, but only a source package, what means you can still install it._
+
 ### Development builds
 
 Every commit to the master branch of this repo will be built. Possible build artifacts use local version identifiers:
