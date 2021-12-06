@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Windows
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/move_binary_from_package_dir
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_macos*'
