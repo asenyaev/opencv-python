@@ -7,6 +7,7 @@ BINARIES_PATHS = [
 ci_and_not_headless = False
 
 try:
+    from . import data
     from .version import ci_build, headless
 
     ci_and_not_headless = ci_build and not headless
