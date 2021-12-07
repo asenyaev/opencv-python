@@ -135,6 +135,7 @@ def main():
         else ["-G", "Unix Makefiles"]
     )
 
+
     cmake_args = (
         (ci_cmake_generator if is_CI_build else [])
         + [
