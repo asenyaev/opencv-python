@@ -415,7 +415,6 @@ class RearrangeCMakeOutput(object):
         print("Copying files from non-default sourcetree locations")
 
         for package_name, paths in cls.files_outside_package.items():
-            print(package_name, paths)
             if package_name != os.path.join("cv2", "python-%s"  % sys.version_info[0]):
                 package_dest_reldir = package_name.replace(".", os.path.sep)
             else:
