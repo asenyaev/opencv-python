@@ -14,7 +14,7 @@ function bdist_wheel_cmd {
     # copied from multibuild's common_utils.sh
     # add osx deployment target so it doesn't default to 10.6
     local abs_wheelhouse=$1
-    python${PYTHON_VERSION} -m pip install pyproject.toml
+    python${PYTHON_VERSION} -m pip install setuptools wheel scikit-build cmake pip numpy
     CI_BUILD=1 python${PYTHON_VERSION} setup.py bdist_wheel --py-limited-api=cp34 -v
 #    CI_BUILD=1 pip wheel --verbose --wheel-dir="$PWD/dist" . $BDIST_PARAMS
     cp dist/*.whl $abs_wheelhouse
@@ -25,7 +25,7 @@ function bdist_wheel_cmd {
       source $TOOLS_PATH/bin/activate
       python patch_auditwheel_whitelist.py
       # to avoid issues with numpy wheels
-      rm /io/wheelhouse/numpy*
+#      rm /io/wheelhouse/numpy*
       deactivate
     fi
     if [ -n "$USE_CCACHE" -a -z "$BREW_BOOTSTRAP_MODE" ]; then ccache -s; fi
