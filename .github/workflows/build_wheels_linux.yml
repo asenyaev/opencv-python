@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Linux x86_64
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/try_python_limited_api
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.7'] # ['3.6', '3.7', '3.8', '3.9', '3.10']
         platform: [x64]
         with_contrib: [0, 1]
         without_gui: [0, 1]
@@ -69,14 +69,57 @@ jobs:
     - name: build
       run: source scripts/build.sh
 
-    - name: install and test
-      run: source scripts/install.sh
-
     - name: saving artifacts
       uses: actions/upload-artifact@v2
       with:
         name: wheels
         path: wheelhouse/opencv*.whl
+
+  test:
+    needs: [build]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        platform: [x64]
+        with_contrib: [0, 1]
+        without_gui: [0, 1]
+        build_sdist: [0]
+
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      REPO_DIR: .
+      BUILD_COMMIT: master
+      PROJECT_SPEC: opencv-python
+      MB_PYTHON_VERSION: ${{ matrix.python-version }}
+      TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
+      MB_ML_VER: 2014
+      NP_TEST_DEP: numpy==1.19.4
+      NP_TEST_DEP_LATEST: numpy==1.21.2
+      TRAVIS_BUILD_DIR: ${{ github.workspace }}
+      CONFIG_PATH: travis_config.sh
+      DOCKER_IMAGE: quay.io/asenyaev/manylinux2014_${PLAT}
+      USE_CCACHE: 1
+      UNICODE_WIDTH: 32
+      SDIST: ${{ matrix.build_sdist || 0 }}
+      ENABLE_HEADLESS: ${{ matrix.without_gui }}
+      ENABLE_CONTRIB: ${{ matrix.with_contrib }}
+
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: wheels
+        path: wheelhouse/
+
+    - name: install and test
+      run: source scripts/install.sh
 
 
   build_sdist:

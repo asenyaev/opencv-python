@@ -97,8 +97,8 @@ def main():
         # Naming conventions vary so widely between versions and OSes
         # had to give up on checking them.
         [
-            "python/cv2/python-%s.%s/cv2[^/]*%s"
-            % (sys.version_info[0], sys.version_info[1], re.escape(sysconfig.get_config_var("EXT_SUFFIX")))
+            r"python/cv2/python-%s/cv2.*"
+            % (sys.version_info[0])
         ]
         +
         [
@@ -159,6 +159,7 @@ def main():
             "-DBUILD_TESTS=OFF",
             "-DBUILD_PERF_TESTS=OFF",
             "-DBUILD_DOCS=OFF",
+            "-DPYTHON3_LIMITED_API=ON",
         ]
         + (
             # If it is not defined 'linker flags: /machine:X86' on Windows x64
