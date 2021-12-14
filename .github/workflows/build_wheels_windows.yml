@@ -131,7 +131,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        shell: bash
+        shell: powershell
 
     strategy:
       fail-fast: false
