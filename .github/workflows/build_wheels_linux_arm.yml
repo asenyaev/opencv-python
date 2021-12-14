@@ -39,7 +39,7 @@ jobs:
       PLAT: aarch64
       MB_ML_VER: 2014
       NP_TEST_DEP: numpy==1.19.4
-      NP_TEST_DEP_LATEST: numpy==1.21.2
+      NP_TEST_DEP_LATEST: numpy==1.21.4
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       CONFIG_PATH: travis_config.sh
       DOCKER_IMAGE: quay.io/asenyaev/manylinux2014_${PLAT}

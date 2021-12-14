@@ -14,9 +14,11 @@ function bdist_wheel_cmd {
     # copied from multibuild's common_utils.sh
     # add osx deployment target so it doesn't default to 10.6
     local abs_wheelhouse=$1
-    python${PYTHON_VERSION} -m pip install setuptools wheel scikit-build cmake pip numpy
-    CI_BUILD=1 python${PYTHON_VERSION} setup.py bdist_wheel --py-limited-api=cp34 -v
-#    CI_BUILD=1 pip wheel --verbose --wheel-dir="$PWD/dist" . $BDIST_PARAMS
+    python${PYTHON_VERSION} -m pip install toml && python${PYTHON_VERSION} -c 'import toml; c = toml.load("pyproject.toml"); print("\n".join(c["build-system"]["requires"]))' | python${PYTHON_VERSION} -m pip install -r /dev/stdin
+
+#    python${PYTHON_VERSION} -m pip install -r requirements.txt
+    CI_BUILD=1 python${PYTHON_VERSION} setup.py bdist_wheel --py-limited-api=cp36 -v
+#    CI_BUILD=1 pip wheel --build-option --py-limited-api=cp36 --verbose --wheel-dir="$PWD/dist" . $BDIST_PARAMS
     cp dist/*.whl $abs_wheelhouse
     if [ -z "$IS_OSX" ]; then
       # this path can be changed in the latest manylinux image
