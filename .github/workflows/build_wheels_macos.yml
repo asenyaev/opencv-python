@@ -157,6 +157,7 @@ jobs:
       NP_TEST_DEP_LATEST: numpy==1.21.4
       CONFIG_PATH: travis_config.sh
       PLAT: x86_64
+      OPENCV_TEST_DATA_PATH: ${{ github.workspace }}/opencv_extra/testdata
       SDIST: ${{ matrix.build_sdist || 0 }}
       ENABLE_HEADLESS: ${{ matrix.without_gui }}
       ENABLE_CONTRIB: ${{ matrix.with_contrib }}
@@ -215,12 +216,6 @@ jobs:
       run: |
         cd ${{ github.workspace }}/opencv
         python modules/python/test/test.py -v --repo .
-
-    - name: Install and test
-      run: |
-        set -x
-        install_run $PLAT
-        set +x
 
   test_release_opencv_python:
     if: github.event_name == 'release' && github.event.release.prerelease
