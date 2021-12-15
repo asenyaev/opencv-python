@@ -37,8 +37,6 @@ jobs:
       MB_PYTHON_VERSION: ${{ matrix.python-version }}
       TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
       MB_ML_VER: 2014
-      NP_TEST_DEP: numpy==1.19.4
-      NP_TEST_DEP_LATEST: numpy==1.21.2
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       CONFIG_PATH: travis_config.sh
       DOCKER_IMAGE: quay.io/asenyaev/manylinux2014_${PLAT}
@@ -69,33 +67,11 @@ jobs:
         name: wheels
         path: wheelhouse/opencv*.whl
 
-    - name: Saving opencv-python wheels
-      if: ${{ matrix.without_gui == 0 && matrix.with_contrib == 0 }}
+    - name: Saving a wheel accordingly to matrix
       uses: actions/upload-artifact@v2
       with:
-        name: opencv-python-wheels
-        path: wheelhouse/opencv_python-*.whl
-
-    - name: Saving opencv-python-headless wheels
-      if: ${{ matrix.without_gui == 1 && matrix.with_contrib == 0 }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: opencv-python-headless-wheels
-        path: wheelhouse/opencv_python_headless-*.whl
-
-    - name: Saving opencv-contrib-python wheels
-      if: ${{ matrix.without_gui == 0 && matrix.with_contrib == 1 }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: opencv-contrib-python-wheels
-        path: wheelhouse/opencv_contrib_python-*.whl
-
-    - name: Saving opencv-contrib-python-headless wheels
-      if: ${{ matrix.without_gui == 1 && matrix.with_contrib == 1 }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: opencv-contrib-python-headless-wheels
-        path: wheelhouse/opencv_contrib_python_headless-*.whl
+        name: wheel-${{ matrix.with_contrib }}-${{ matrix.without_gui }}-${{ matrix.build_sdist }}
+        path: wheelhouse/opencv*.whl
 
   test:
     needs: [build]
@@ -121,9 +97,6 @@ jobs:
       NP_TEST_DEP_LATEST: numpy==1.21.2
       CONFIG_PATH: travis_config.sh
       PLAT: x86_64
-      SDIST: ${{ matrix.build_sdist || 0 }}
-      ENABLE_HEADLESS: ${{ matrix.without_gui }}
-      ENABLE_CONTRIB: ${{ matrix.with_contrib }}
 
     steps:
     - name: Checkout
@@ -135,35 +108,13 @@ jobs:
     - name: Setup Environment variables
       run: if [ "3.10" == "${{ matrix.python-version }}" ]; then echo "TEST_DEPENDS=$(echo $NP_TEST_DEP_LATEST)" >> $GITHUB_ENV; else echo "TEST_DEPENDS=$(echo $NP_TEST_DEP)" >> $GITHUB_ENV; fi
 
-    - name: Download opencv-python wheels
-      if: ${{ matrix.without_gui == 0 && matrix.with_contrib == 0 }}
+    - name: Download a wheel accordingly to matrix
       uses: actions/download-artifact@v2
       with:
-        name: opencv-python-wheels
+        name: wheel-${{ matrix.with_contrib }}-${{ matrix.without_gui }}-${{ matrix.build_sdist }}
         path: wheelhouse/
 
-    - name: Download opencv-python-headless wheels
-      if: ${{ matrix.without_gui == 1 && matrix.with_contrib == 0 }}
-      uses: actions/download-artifact@v2
-      with:
-        name: opencv-python-headless-wheels
-        path: wheelhouse/
-
-    - name: Download opencv-contrib-python wheels
-      if: ${{ matrix.without_gui == 0 && matrix.with_contrib == 1 }}
-      uses: actions/download-artifact@v2
-      with:
-        name: opencv-contrib-python-wheels
-        path: wheelhouse/
-
-    - name: Download opencv-contrib-python-headless wheels
-      if: ${{ matrix.without_gui == 1 && matrix.with_contrib == 1 }}
-      uses: actions/download-artifact@v2
-      with:
-        name: opencv-contrib-python-headless-wheels
-        path: wheelhouse/
-
-    - name: install and test
+    - name: Package installation and run tests
       run: source scripts/install.sh
 
 
@@ -219,7 +170,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
         architecture: ${{ matrix.platform }}
 
-    - name: before install
+    - name: Build a package
       run: |
         set -e
         # Build and package
