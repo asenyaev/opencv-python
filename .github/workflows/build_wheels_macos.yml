@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Macos
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/final_test_3.4
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_windows*'
@@ -63,11 +63,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        submodules: false
+        submodules: true
         fetch-depth: 0
 
     - name: Update submodules
-      if: github.event_name == 'pull_request'
       run: git submodule update --remote
 
     - name: Build a package
