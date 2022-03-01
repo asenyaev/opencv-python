@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Windows
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/fix_latest_commit
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_macos*'
@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest]
+        os: [windows-2019]
         python-version: ['3.6']
         platform: [x86, x64]
         with_contrib: [0, 1]
@@ -49,7 +49,7 @@ jobs:
         architecture: ${{ matrix.platform }}
 
     - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
+      uses: microsoft/setup-msbuild@v1.1
 
     - name: Build a package
       run: |
