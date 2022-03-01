@@ -55,13 +55,13 @@ if [ -n "$IS_OSX" ]; then
 
         local REGENERATE
         if [ -f "$LFF_FORMULA" ]; then
-            local UPSTREAM_VERSION VERSION
+            local UPSTREAM_VERSION FFMPEG_VERSION
             _brew_parse_package_info "$FF" " " UPSTREAM_VERSION _ _
-            _brew_parse_package_info "$LFF" " " VERSION _ _   || REGENERATE=1
+            _brew_parse_package_info "$LFF" " " FFMPEG_VERSION _ _   || REGENERATE=1
             #`rebuild` clause is ignored on `brew bottle` and deleted
             # from newly-generated formula on `brew bottle --merge` for some reason
             # so can't compare rebuild numbers
-            if [ "$UPSTREAM_VERSION" != "$VERSION" ]; then
+            if [ "$UPSTREAM_VERSION" != "$FFMPEG_VERSION" ]; then
                 REGENERATE=1
             fi
         else
@@ -84,7 +84,7 @@ if (/^\s*depends_on "(x264|x265|xvid|frei0r|rubberband|libvidstab)"$/) {$_=""; n
                 # This is the official way to add a formula
                 # https://docs.brew.sh/Formula-Cookbook#commit
                 git add "$(basename "$LFF_FORMULA")"
-                git commit -m "add/update custom ffmpeg ${VERSION}"
+                git commit -m "add/update custom ffmpeg ${FFMPEG_VERSION}"
             )
         fi
     }
