@@ -1,7 +1,7 @@
 name: Build PYPI wheels for opencv-python on Windows
 
 on:
-  push:
+  pull_request:
     branches:
       - asen/fix_latest_commit
     paths-ignore:

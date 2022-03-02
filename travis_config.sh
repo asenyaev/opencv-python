@@ -124,10 +124,12 @@ function pre_build {
     #     brew_install_and_cache_within_time_limit ffmpeg_opencv || { [ $? -gt 1 ] && return 2 || return 0; }
     # else
         brew update
-        generate_ffmpeg_formula
-        brew_add_local_bottles
+        brew install ffmpeg@4
+        brew link ffmpeg@4
+#        generate_ffmpeg_formula
+#        brew_add_local_bottles
         # brew unlink python@2
-        brew install --build-bottle ffmpeg_opencv
+#        brew install --build-bottle ffmpeg_opencv
     # fi
 
     # echo 'Installing qt5'
