@@ -128,6 +128,7 @@ function pre_build {
         brew_add_local_bottles
         # brew unlink python@2
         brew install --build-bottle ffmpeg_opencv
+        brew link ffmpeg_opencv
     # fi
 
     # echo 'Installing qt5'
