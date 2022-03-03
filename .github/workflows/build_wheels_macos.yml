@@ -1,9 +1,9 @@
 name: Build PYPI wheels for opencv-python on Macos
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - asen/dfksjkjsadjkdsdjfkjksdf
     paths-ignore:
       - '.github/workflows/build_wheels_linux*'
       - '.github/workflows/build_wheels_windows*'
