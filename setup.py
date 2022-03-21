@@ -93,20 +93,20 @@ def main():
             else []
         )
         +
-        # In Windows, in python/X.Y/<arch>/; in Linux, in just python/X.Y/.
-        # Naming conventions vary so widely between versions and OSes
-        # had to give up on checking them.
-        [
-            r"python/cv2/python-%s/cv2.*"
-            % (sys.version_info[0])
-        ]
-        +
         [
             r"python/cv2/__init__.py"
         ]
         +
         [
             r"python/cv2/.*config.*.py"
+        ],
+        # In Windows, in python/X.Y/<arch>/; in Linux, in just python/X.Y/.
+        # Naming conventions vary so widely between versions and OSes
+        # had to give up on checking them.
+        os.path.join("cv2", "python-%s"  % (sys.version_info[0])):
+        [
+            r"python/cv2/python-%s/cv2.*"
+            % (sys.version_info[0])
         ],
         "cv2.data": [  # OPENCV_OTHER_INSTALL_PATH
             ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/.*\.xml"
@@ -383,7 +383,7 @@ class RearrangeCMakeOutput(object):
 
         for package_name, relpaths_re in cls.package_paths_re.items():
             print(package_name, relpaths_re)
-            if package_name != os.path.join("cv2", "python-%s"  % sys.version_info[0]):
+            if package_name != os.path.join("cv2", "python-%s"  % (sys.version_info[0])):
                 package_dest_reldir = package_name.replace(".", os.path.sep)
             else:
                 package_dest_reldir = package_name
@@ -415,7 +415,7 @@ class RearrangeCMakeOutput(object):
         print("Copying files from non-default sourcetree locations")
 
         for package_name, paths in cls.files_outside_package.items():
-            if package_name != os.path.join("cv2", "python-%s"  % sys.version_info[0]):
+            if package_name != os.path.join("cv2", "python-%s"  % (sys.version_info[0])):
                 package_dest_reldir = package_name.replace(".", os.path.sep)
             else:
                 package_dest_reldir = package_name
