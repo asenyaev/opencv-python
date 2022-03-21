@@ -170,6 +170,7 @@ def main():
             "-DBUILD_TESTS=OFF",
             "-DBUILD_PERF_TESTS=OFF",
             "-DBUILD_DOCS=OFF",
+            "-DBUILD_OPENEXR=ON",
         ]
         + (
             # If it is not defined 'linker flags: /machine:X86' on Windows x64
