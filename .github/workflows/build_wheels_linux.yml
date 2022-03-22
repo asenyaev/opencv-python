@@ -120,11 +120,6 @@ jobs:
     - name: Package installation and run tests
       run: source scripts/install.sh
 
-    - name: Pylint test
-      run: |
-        python${{ matrix.python-version }} -m pip install pylint
-        python${{ matrix.python-version }} -m pylint ${{ github.workspace }}/tests/pylint-test.py --extension-pkg-whitelist=cv2
-
   build_sdist:
     runs-on: ${{ matrix.os }}
     defaults:

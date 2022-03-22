@@ -123,11 +123,6 @@ jobs:
     - name: Package installation and run tests
       run: source scripts/install.sh
 
-    - name: Pylint test
-      run: |
-        python${{ matrix.python-version }} -m pip install pylint
-        python${{ matrix.python-version }} -m pylint ${{ github.workspace }}/tests/pylint-test.py --extension-pkg-whitelist=cv2
-
   test_release_opencv_python:
     if: github.event_name == 'release' && github.event.release.prerelease
     needs: [build_arm, test]

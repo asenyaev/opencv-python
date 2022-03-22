@@ -163,14 +163,23 @@ function run_tests {
     fi
 
     test_wheels
+    pylint_tests
 }
 
 function test_wheels {
 
-    echo "Starting tests..."
+    echo "Starting OpenCV tests..."
 
     #Test package
     $PYTHON modules/python/test/test.py -v --repo .
+}
+
+function pylint_tests {
+
+    echo "Starting Pylint tests..."
+
+    $PYTHON -m pip install pylint
+    $PYTHON -m pylint ../tests/pylint.py --extension-pkg-whitelist=cv2 --disable=missing-docstring
 }
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
