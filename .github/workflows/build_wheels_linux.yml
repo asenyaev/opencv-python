@@ -1,9 +1,12 @@
 name: Build PYPI wheels for opencv-python on Linux x86_64
 
 on:
-  pull_request:
+#  pull_request:
+#    branches:
+#      - master
+  push:
     branches:
-      - master
+      - asen/add_pylint_test
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
@@ -116,6 +119,11 @@ jobs:
 
     - name: Package installation and run tests
       run: source scripts/install.sh
+
+    - name: Pylint test
+      run: |
+        python${{ matrix.python-version }} -m pip install pylint
+        python${{ matrix.python-version }} -m pylint ${{ github.workspace }}/tests/pylint-test.py --extension-pkg-whitelist=cv2
 
   build_sdist:
     runs-on: ${{ matrix.os }}
