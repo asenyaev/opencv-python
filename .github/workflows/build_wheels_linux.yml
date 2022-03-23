@@ -1,9 +1,12 @@
 name: Build PYPI wheels for opencv-python on Linux x86_64
 
 on:
-  pull_request:
+#  pull_request:
+#    branches:
+#      - master
+  push:
     branches:
-      - master
+      - asen/linux_pylint-test
     paths-ignore:
       - '.github/workflows/build_wheels_linux_arm.yml'
       - '.github/workflows/build_wheels_windows*'
@@ -97,6 +100,7 @@ jobs:
       NP_TEST_DEP_LATEST: numpy==1.21.2
       CONFIG_PATH: travis_config.sh
       PLAT: x86_64
+      PYLINT_TEST_FILE: opencv/modules/python/test/test_algorithm_rw.py
 
     steps:
     - name: Checkout
