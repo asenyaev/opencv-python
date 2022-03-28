@@ -109,19 +109,7 @@ def main():
             r"python/cv2/.*config.*.py"
         ],
         "cv2.data": [  # OPENCV_OTHER_INSTALL_PATH
-            ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/.*\.xml"
-        ],
-        "cv2.gapi": [
-            "python/cv2" + r"/gapi/.*\.py"
-        ],
-        "cv2.mat_wrapper": [
-            "python/cv2" + r"/mat_wrapper/.*\.py"
-        ],
-        "cv2.misc": [
-            "python/cv2" + r"/misc/.*\.py"
-        ],
-        "cv2.utils": [
-            "python/cv2" + r"/utils/.*\.py"
+            ("etc" if os.name == "nt" else "share/OpenCV") + r"/haarcascades/.*\.xml"
         ],
     }
 
