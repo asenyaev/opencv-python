@@ -12,9 +12,12 @@ on:
       - '.github/workflows/build_wheels_macos*'
   release:
     types: [published, edited]
-  schedule:
-    - cron: '0 3 * * 6'
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      MATRIX_BRANCH:
+        required: true
+        type: string
 
 
 jobs:
@@ -47,11 +50,20 @@ jobs:
         if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
           echo "ENABLE_ROLLING=1" >> $GITHUB_ENV
         fi
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: false
-        fetch-depth: 0
+        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          echo "CLONE_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          echo "SOURCE_BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
+          echo "PR_AUTHOR_FORK=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
+        elif [[ "${{ github.event_name }}" == "schedule" ]]; then
+          echo "CLONE_BRANCH=${{ inputs.MATRIX_BRANCH }}" >> $GITHUB_ENV
+        else
+          echo "CLONE_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+        fi
+    - name: Clone
+      run: git clone --branch ${{ env.CLONE_BRANCH }} https://github.com/opencv/opencv-python.git ${{ github.workspace }}
+    - name: Merge with a test branch
+      if: ${{ github.event_name  == 'pull_request' }}
+      run: cd ${{ github.workspace }} && git pull -v "https://github.com/${{ env.PR_AUTHOR_FORK }}" "${{ env.SOURCE_BRANCH_NAME }}"
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -103,11 +115,25 @@ jobs:
         rm -rf ./* || true
         rm -rf ./.??* || true
       working-directory: ${{ github.workspace }}
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: true
-        fetch-depth: 0
+    - name: Setup Environment variables
+      shell: bash
+      run: |
+        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          echo "CLONE_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          echo "SOURCE_BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
+          echo "PR_AUTHOR_FORK=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
+        elif [[ "${{ github.event_name }}" == "schedule" ]]; then
+          echo "CLONE_BRANCH=${{ inputs.MATRIX_BRANCH }}" >> $GITHUB_ENV
+        else
+          echo "CLONE_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+        fi
+    - name: Clone
+      run: git clone --branch ${{ env.CLONE_BRANCH }} https://github.com/opencv/opencv-python.git ${{ github.workspace }}
+    - name: Merge with a test branch
+      if: ${{ github.event_name  == 'pull_request' }}
+      run: |
+        cd ${{ github.workspace }} && git pull -v "https://github.com/${{ env.PR_AUTHOR_FORK }}" "${{ env.SOURCE_BRANCH_NAME }}"
+        git submodule update --init --recursive
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
